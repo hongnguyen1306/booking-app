@@ -1,13 +1,9 @@
-import { Column, Entity, ObjectId, ObjectIdColumn } from 'typeorm';
+import { Column, Entity, ObjectId, ObjectIdColumn, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'destinations' })
 export class Destination {
-    @ObjectIdColumn()
-    id: ObjectId;
-
+    @PrimaryGeneratedColumn('uuid')
+    id: string;
     @Column()
     name: string;
-
-    @Column({ default: false })
-    visited: boolean;
 }

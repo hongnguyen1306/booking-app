@@ -2,25 +2,24 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { DestinationsModule } from './api/admin/destinations/destinations.module';
+import { UrlModule } from './url/url.module';
+import { Destination } from './database/models/destination.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'mongodb',
-      host: process.env.DB_HOST,
-      port: parseInt(process.env.DB_PORT),
-      username: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_DATABASE,
-      ssl: true,
-
-      autoLoadEntities: true,
-
-      // Only enable this option if your application is in development,
-      // otherwise use TypeORM migrations to sync entity schemas:
-      // https://typeorm.io/#/migrations
+      type: 'postgres',
+      host: 'localhost',
+      port: 5432,
+      username: 'dev',
+      password: 'dev',
+      database: 'bookingstore',
+      entities: [Destination],
       synchronize: true,
     }),
+    UrlModule,
+    DestinationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
