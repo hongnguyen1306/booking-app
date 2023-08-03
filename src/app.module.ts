@@ -1,10 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DestinationsModule } from './api/admin/destinations/destinations.module';
-import { UrlModule } from './url/url.module';
-import { Destination } from './database/models/destination.entity';
 
 @Module({
   imports: [
@@ -15,10 +14,11 @@ import { Destination } from './database/models/destination.entity';
       username: 'postgres',
       password: '123',
       database: 'bookingstore',
-      entities: [Destination],
+      entities: [
+        __dirname + '/**/*.entity{.ts,.js}',
+      ],
       synchronize: true,
     }),
-    UrlModule,
     DestinationsModule,
   ],
   controllers: [AppController],

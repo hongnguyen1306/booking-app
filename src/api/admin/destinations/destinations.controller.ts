@@ -1,26 +1,25 @@
-import { Injectable, Controller, Post, Body, Get } from "@nestjs/common";
+import { Controller, Post, Body, Get } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+
 import { Destination } from "src/database/models/destination.entity";
-import { MongoRepository } from "typeorm";
 import { DestinationsService } from "./destinations.service";
-import { CreateDestinationDto } from "./dto/create-destination.dto";
+import type { CreateDestinationDto } from "./dto/create-destination.dto";
 
 @Controller('destinations')
 export class DestinationsController {
     constructor(
-        @InjectRepository(Destination)
         private destinationsService: DestinationsService,
     ) { }
 
     @Post('/create')
-    async create(@Body() createDestinationDto: CreateDestinationDto): Promise<any> {
+    public async create(@Body() createDestinationDto: CreateDestinationDto): Promise<Destination> {
         console.log("createDestinationDto ", createDestinationDto)
-        console.log("\nthis.destinationsService.create(createDestinationDto) ", this.destinationsService.create(createDestinationDto))
-        return this.destinationsService.create(createDestinationDto);
+        return this.destinationsService.create(createDestinationDto);;
     }
 
     @Get()
-    async findAll(): Promise<Destination[]> {
-        return this.destinationsService.findAll();
+    public async findAll(): Promise<Destination[]> {
+        const listDestinations = await this.destinationsService.findAll();
+        return listDestinations;
     }
 }
