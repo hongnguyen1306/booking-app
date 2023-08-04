@@ -1,9 +1,10 @@
-import { Module } from '@nestjs/common';
+import { ConfigurableModuleBuilder, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DestinationsModule } from './api/admin/destinations/destinations.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -14,14 +15,13 @@ import { DestinationsModule } from './api/admin/destinations/destinations.module
       username: 'postgres',
       password: '123',
       database: 'bookingstore',
-      entities: [
-        __dirname + '/**/*.entity{.ts,.js}',
-      ],
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
+    ConfigModule, ConfigModule.forRoot({envFilePath: ['.env']}),
     DestinationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}
