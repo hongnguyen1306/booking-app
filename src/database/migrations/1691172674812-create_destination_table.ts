@@ -19,12 +19,12 @@ export class CreateDestinationTable1691172674812 implements MigrationInterface {
                 },
                 {
                     name: 'created_at',
-                    type: 'datetime',
+                    type: 'timestamp',
                     default: 'now()',
                 },
                 {
                     name: 'updated_at',
-                    type: 'datetime',
+                    type: 'timestamp',
                     default: 'now()',
                 }
             ]

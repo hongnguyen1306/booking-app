@@ -23,26 +23,16 @@ export class CreateRoomTable1691172633275 implements MigrationInterface {
                 },
                 {
                     name: 'created_at',
-                    type: 'datetime',
+                    type: 'timestamp',
                     default: 'now()',
                 },
                 {
                     name: 'updated_at',
-                    type: 'datetime',
+                    type: 'timestamp',
                     default: 'now()',
                 }
             ]
         }), true)
-
-        await queryRunner.createForeignKey(
-            'rooms',
-            new TableForeignKey({
-              columnNames: ['destination_id'],
-              referencedColumnNames: ['id'],
-              referencedTableName: 'destinations',
-              onDelete: 'CASCADE',
-            }),
-          );
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
